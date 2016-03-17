@@ -155,13 +155,14 @@ def pkcs12_equal?(a, b)
   return false unless a.certificate.to_s == b.certificate.to_s
   return false unless a.ca_certs.count == b.ca_certs.count
 
-  a.ca_certs.each do |ca_cert|
-    ret = true
+  a.ca_certs.each do |a_ca_cert|
+    found = false
     b.ca_certs.each do |b_ca_cert|
-      if ca_cert == b_ca_cert
-        next
+      if a_ca_cert.to_s == b_ca_cert.to_s
+        found = true
+        break
       end
     end
-    return false unless ret
+    return false unless found
   end
 end
